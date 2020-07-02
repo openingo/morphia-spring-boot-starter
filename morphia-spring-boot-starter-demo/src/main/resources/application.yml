@@ -1,0 +1,9 @@
+openingo:
+  morphia:
+    host: localhost
+    port: 27017
+    auth-database: admin
+    username: username
+    password: password
+    database: sns
+    map-package: org.openingo.morphia.starter.demo.entity
