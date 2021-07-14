@@ -1,12 +1,12 @@
 ## morphia-spring-boot-starter
 
-![maven](https://img.shields.io/maven-central/v/org.openingo.starter/morphia-spring-boot-starter.svg)
+![maven](https://img.shields.io/maven-central/v/org.openingo.boot/morphia-spring-boot-starter.svg)
 
 #### dependency
 
 ```xml
 <dependency>
-    <groupId>org.openingo.starter</groupId>
+    <groupId>org.openingo.boot</groupId>
     <artifactId>morphia-spring-boot-starter</artifactId>
     <version>new_version</version>
 </dependency>

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-org.openingo.morphia.config.MorphiaAutoConfiguration
+org.openingo.boot.morphia.configuration.MorphiaAutoConfiguration

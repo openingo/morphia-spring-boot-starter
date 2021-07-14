@@ -25,18 +25,18 @@
  * SOFTWARE.
  */
 
-package org.openingo.morphia.config;
+package org.openingo.boot.morphia.configuration;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * MongoConfig
+ * MorphiaConfigurationProperties
  * @author Qicz
  */
 @Data
 @ConfigurationProperties(prefix = "openingo.morphia")
-public class MorphiaConfig {
+public class MorphiaConfigurationProperties {
 
     /**
      * map package

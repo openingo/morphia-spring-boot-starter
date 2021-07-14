@@ -25,15 +25,15 @@
  * SOFTWARE.
  */
 
-package org.openingo.morphia.config;
+package org.openingo.boot.morphia.configuration;
 
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
-import dev.morphia.Datastore;
-import dev.morphia.Morphia;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -44,36 +44,36 @@ import org.springframework.context.annotation.Configuration;
  * @author Qicz
  */
 @Configuration
-@EnableConfigurationProperties(MorphiaConfig.class)
+@EnableConfigurationProperties(MorphiaConfigurationProperties.class)
 public class MorphiaAutoConfiguration {
 
-    private final MorphiaConfig morphiaConfig;
+    private final MorphiaConfigurationProperties properties;
 
-    public MorphiaAutoConfiguration(MorphiaConfig morphiaConfig) {
-        this.morphiaConfig = morphiaConfig;
+    public MorphiaAutoConfiguration(MorphiaConfigurationProperties properties) {
+        this.properties = properties;
     }
 
     @Bean
     @ConditionalOnMissingBean(Datastore.class)
     public Datastore datastore() {
         Morphia morphia = new Morphia();
-        if (morphiaConfig.getMapPackage() != null) {
-            morphia.mapPackage(morphiaConfig.getMapPackage());
+        if (properties.getMapPackage() != null) {
+            morphia.mapPackage(properties.getMapPackage());
         }
         MongoClientOptions options = new MongoClientOptions.Builder().build();
         MongoClient mongoClient;
-        if (morphiaConfig.getUsername() != null && morphiaConfig.getPassword() != null) {
+        if (properties.getUsername() != null && properties.getPassword() != null) {
             // with password
             MongoCredential credential = MongoCredential.createCredential(
-                    morphiaConfig.getUsername(),
-                    morphiaConfig.getAuthDatabase(),
-                    morphiaConfig.getPassword().toCharArray());
-            mongoClient = new MongoClient(new ServerAddress(morphiaConfig.getHost(), morphiaConfig.getPort()), credential, options);
+                    properties.getUsername(),
+                    properties.getAuthDatabase(),
+                    properties.getPassword().toCharArray());
+            mongoClient = new MongoClient(new ServerAddress(properties.getHost(), properties.getPort()), credential, options);
         } else {
             // non password
-            mongoClient = new MongoClient(new ServerAddress(morphiaConfig.getHost(), morphiaConfig.getPort()));
+            mongoClient = new MongoClient(new ServerAddress(properties.getHost(), properties.getPort()));
         }
-        Datastore datastore = morphia.createDatastore(mongoClient, morphiaConfig.getDatabase());
+        Datastore datastore = morphia.createDatastore(mongoClient, properties.getDatabase());
         // building @Indexed
         datastore.ensureIndexes();
         return datastore;
